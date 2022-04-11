@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { v4 as uuidv4} from 'uuid'
+
+import Header from './components/Header'
+import FeedbackList from './components/FeedbackList'
+import FeedbackStats from './components/FeedbackStats'
+import FeedbackForm from './components/FeedbackForm'
+
+import FeedbackData from './data/feedbackData'
+
+function App(){
+
+    const title = 'Blog Post'
+    const body = 'This is my blog post'
+
+    const [feedback, setFeedback] = useState(FeedbackData);
+
+    const deleteFeedback = (id) => {
+        
+        if(window.confirm('Sure Delete?')){
+            setFeedback(feedback.filter((item) => item.id != id));
+        }
+    }
+
+    const handleNewFeedback = (newFeedback) => {
+
+        newFeedback.id = uuidv4()
+
+        setFeedback([newFeedback, ...feedback])
+    }
+
+    return (
+        <>
+            <Header />
+            <div className="container">
+                <FeedbackForm handleNewFeedback={handleNewFeedback}/>
+                <FeedbackStats feedback={feedback}/>
+                <FeedbackList feedback={feedback} handleDelete={deleteFeedback}/>
+            </div>
+        </>
+    )
 }
 
-export default App;
+export default App
