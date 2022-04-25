@@ -8,3 +8,7 @@ Test Application to revise React
     - Delete existing feedback items
     - Check the Stats of the Feedback items (total item count and average rating)
     - animations for the add/delete feedback
+
+## Version 0.3.0 Update:
+
+    - Edit Feedbacks
